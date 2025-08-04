@@ -30,6 +30,6 @@ $str = str_replace("O", "0",$str);
 $str = str_replace("a", "4",$str);
 $str = str_replace("i", "1",$str);
 
-print $str
+echo $str
 
 ?>
