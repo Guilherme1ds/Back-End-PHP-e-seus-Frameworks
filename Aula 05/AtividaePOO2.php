@@ -1,0 +1,37 @@
+<?php
+// Exercício 3: Após a conclusão dos exercícios 1 e 2, crie uma classe chamada 'Usuario' com os atributos: Nome, CPF, Sexo, Email, Estado civil, Cidade, Estado, Endereco e CEP.
+
+class Usuario {
+    public $nome;
+    public $cpf;
+    public $sexo;
+    public $email;
+    public $estado_civil;
+    public $cidade;
+    public $estado;
+    public $endereço;
+    public $cep;
+
+    public function __construct($nome, $cpf, $sexo, $email, $estado_civil, $cidade, $estado, $endereço, $cep) {
+        $this->nome = $nome;
+        $this->cpf = $cpf;
+        $this->sexo = $sexo;
+        $this->email = $email;
+        $this->estado_civil = $estado_civil;
+        $this->cidade = $cidade;
+        $this->estado = $estado;
+        $this->endereço = $endereço;
+        $this->cep = $cep;
+    }
+}
+
+// Exercício 4: Crie 3 objetos utilizando a classe do exercício 3, seguindo as seguintes informações:
+
+$usuario1 = new Usuario("Josenildo Afonso Souza", "100.200.300-40", "Masculino", "josenewdo.souza@gmail.com", "Casado", "Xique-Xique",
+"Bahia", "Rua da amizade, 99", "40123-98");
+$usuario2 = new Usuario("Valentina Passos Scherrer", "070.070.060-70", "Feminino", "scherrer.valen@outlook.com", "Divorciada", "Iracemápolis",
+"São Paulo", "Avenida da saudade, 1942", "23456-24");
+$usuario3 = new Usuario("Claudio Braz Nepumoceno", "575.575.242-32", "Masculino", "Clauclau.nepumoceno@gmail.com", "Solteiro", "Piripiri",
+"Piauí", "Estrada 3, 33", "12345-99");
+
+?>
