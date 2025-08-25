@@ -1,5 +1,5 @@
 <?php
-// Exercício 1: Crie uma classe (molde de objetos) chamada 'Cachorro' com os seguintes atributos: Nome, idade, raça, castrado e sexo
+
 class Cachorro {
     public $nome;
     public $idade;
@@ -23,8 +23,6 @@ class Cachorro {
         echo "O cachorro $nome da raça $raca está marcando território.";
     }
 }
-
-// Exercício 2: Após a criação da classe do exercício 1, crie 10 cachorros (10 objetos).
 
 $cachorro1 = new Cachorro("Princesa", "2 Anos", "Pinscher", false, "Fêmea");
 $cachorro2 = new Cachorro("Scooby", "3 Anos", "Salsicha", true, "Macho");
