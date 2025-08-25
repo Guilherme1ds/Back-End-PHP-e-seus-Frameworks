@@ -47,4 +47,5 @@ $usuario2 = new Usuario("Valentina Passos Scherrer", "070.070.060-70", "Feminino
 $usuario3 = new Usuario("Claudio Braz Nepumoceno", "575.575.242-32", "Masculino", "Clauclau.nepumoceno@gmail.com", "Casado", "Piripiri",
 "Piauí", "Estrada 3, 33", "12345-99");
 $usuario3 -> Casamento("12");
+$usuario3 -> testandoReservista("Masculino");
 ?>
