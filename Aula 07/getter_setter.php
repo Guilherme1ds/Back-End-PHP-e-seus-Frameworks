@@ -30,7 +30,7 @@ class Pessoa {
     public function setCpf($cpf) { // Setter CPF
         $this->cpf = preg_replace('/\D/', '', $cpf);
     }
-    // preg_replace: altera a estruturade uma string
+    // preg_replace: altera a estrutura de uma string
     // pattern: /\D/ = significa qualquer caracter que não seja digito "," e "-"
 
     public function getCpf() { // Getter CPF
