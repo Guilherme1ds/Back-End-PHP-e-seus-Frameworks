@@ -7,42 +7,59 @@ Terra, eles poderão comer comidas típicas e nadar em rios ou praias. */
 
 // Classes:
 // Turistas
-// Lugares
+// Localidade
+// Atividade
+// Comida
+// CorpoDagua
 
 // Métodos:
-// Visitar
-// Comer
-// Nadar
+// Visitar - Turista
+// Comer - Turista
+// Nadar - Turista
+// InformarAtividades - Localidade
+// Executar - Atividade
+// getdescricao - Comida
+// gettipo - CorpoDagua
 
-class Turistas {
-    private $nome_turista;
-    private $idade_turista;
-    private $cpf_turista;
+class Turista {
+    private $nome;
+    private $idade;
+    private $cpf;
 
-    public function __construct($nome_turista, $idade_turista, $cpf_turista) {
-        $this->nome_turista = $nome_turista;
-        $this->idade_turista = $idade_turista;
-        $this->cpf_turista = $cpf_turista;
-    }
-
-    public function visitar(Lugares $nome_lugar) {
+    public function __construct($nome, $idade, $cpf) {
+        $this->nome = $nome;
+        $this->idade = $idade;
+        $this->cpf = $cpf;
     }
 
     public function comer($comida) {
+        echo "Turista está comendo " . $comida->getDescricao() .""; 
     }
-    
-    public function nadar($local_natacao) {
-        
+
+    public function nadar($corpoDagua) {
+        echo "Turista está nadando em " . $corpoDagua->getTipo() ."";
     }
 }
 
-class Lugares {
-    private $nome_lugar;
-    private $comida_tipica;
+class Localidade {
+    public function informarAtividades() {
+        echo "Atividades disponíveis nesta localidade...";
+    }
+}
 
-    public function __construct($nome_lugar, $comida_tipica) {
-        $this->nome_lugar = $nome_lugar;
-        $this->comida_tipica = $comida_tipica;
+abstract class Atividade {
+    abstract public function executar();
+}
+
+class Comida {
+    public function getDescricao() {
+        return "Comida típica";
+    }
+}
+
+class CorpoDagua {
+    public function getTipo() {
+        return "Lago";
     }
 }
 
