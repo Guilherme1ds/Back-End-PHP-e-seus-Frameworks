@@ -28,7 +28,7 @@ class BebidaDAO {
         $dadosParaSalvar=[];
 
         foreach ($this->bebidasArray as $nome => $bebida) {
-            $dados[$nome]=[
+            $dadosParaSalvar[$nome]=[
                 'nome'=>$bebida->getNome(),
                 'categoria'=>$bebida->getCategoria(),
                 'volume'=>$bebida->getVolume(),
@@ -47,7 +47,7 @@ class BebidaDAO {
 
     // UPDATE
     public function atualizarBebida($nome, $novoValor, $novaQtde) {
-        if(isset($bebidasArray[$nome])) {
+        if(isset($this->bebidasArray[$nome])) {
             $this->bebidasArray[$nome]->setValor($novoValor);
             $this->bebidasArray[$nome]->setQtde($novaQtde);
         }

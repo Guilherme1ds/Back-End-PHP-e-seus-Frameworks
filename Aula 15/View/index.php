@@ -37,7 +37,7 @@ $lista = $controller->ler();
 <br>
 <hr>
     <form method="POST">
-    <input type="hidden" name="acao" value="criar">
+    <input type="hidden" name="acao" value="salvar">
     <input type="text" name="nome" placeholder="Nome da bebida:" required>
     <select name="categoria" required>
         <option value="">Selecione a categoria</option>
