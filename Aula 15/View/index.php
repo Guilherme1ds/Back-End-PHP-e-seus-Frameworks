@@ -54,5 +54,28 @@ $lista = $controller->ler();
     <input type="number" name="qtde" placeholder="Quantidade em estoque:" required>
     <button type="submit">Cadastrar</button>
     </form>
+
+    <hr>
+
+<?php if (!empty($lista)): ?>
+    <h2>Bebidas cadastradas</h2>
+    <?php foreach ($lista as $bebida): ?>
+        <p>
+            <strong>Nome:</strong> <?=$bebida->getNome()?><br>
+            <strong>Categoria:</strong> <?=$bebida->getCategoria()?><br>
+            <strong>Volume:</strong> <?=$bebida->getVolume()?><br>
+            <strong>Valor:</strong> R$ <?=$bebida->getValor()?><br>
+            <strong>Quantidade:</strong> <?=$bebida->getQtde()?><br>
+
+            <form method="POST" style="margin-top:5px;">
+                <input type="hidden" name="acao" value="deletar">
+                <input type="hidden" name="nome" value="<?=$bebida->getNome()?>">
+                <button type="submit">Excluir</button>
+            </form>
+        </p>
+        <hr>
+    <?php endforeach; ?>
+<?php endif; ?>
+
 </body>
 </html>
