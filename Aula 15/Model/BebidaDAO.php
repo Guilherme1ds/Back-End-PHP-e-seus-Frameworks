@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/../Model/Bebida.php"; 
 
 class BebidaDAO {
     private $bebidasArray = [];
@@ -17,7 +18,7 @@ class BebidaDAO {
                         $info['categoria'],
                         $info['volume'],
                         $info['valor'],
-                        $info['qtde'],
+                        $info['qtde']
                     );
                 }
             }
@@ -36,7 +37,8 @@ class BebidaDAO {
                 'qtde'=>$bebida->getQtde()                
             ];
         }
-        file_put_contents($this->arquivoJson, json_encode($dadosParaSalvar, JSON_PRETTY_PRINT));
+        
+        file_put_contents($this->arquivoJson, json_encode($dadosParaSalvar, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
 
     // CREATE
@@ -45,23 +47,38 @@ class BebidaDAO {
         $this->salvarArquivo();
     }
 
-    // UPDATE
-    public function atualizarBebida($nome, $novoValor, $novaQtde) {
-        if(isset($this->bebidasArray[$nome])) {
-            $this->bebidasArray[$nome]->setValor($novoValor);
-            $this->bebidasArray[$nome]->setQtde($novaQtde);
-        }
-        $this->salvarArquivo();
-    }
-
     // READ
     public function lerBebida() {
         return $this->bebidasArray;
     }
 
+    // UPDATE
+    public function atualizarBebida($nomeOriginal, $novoNome, $categoria, $volume, $valor, $qtde) {
+        if(isset($this->bebidasArray[$nomeOriginal])) {
+            
+            $bebida = $this->bebidasArray[$nomeOriginal];
+            
+            $bebida->setNome($novoNome);
+            $bebida->setCategoria($categoria);
+            $bebida->setVolume($volume);
+            $bebida->setValor($valor);
+            $bebida->setQtde($qtde);
+
+            if ($nomeOriginal !== $novoNome) {
+                unset($this->bebidasArray[$nomeOriginal]);
+            }
+            
+            $this->bebidasArray[$novoNome] = $bebida;
+            
+            $this->salvarArquivo();
+        }
+    }
+
     // DELETE
     public function excluirBebida($nome) {
-        unset($this->bebidasArray[$nome]);
+        if(isset($this->bebidasArray[$nome])) {
+            unset($this->bebidasArray[$nome]);
+        }
         $this->salvarArquivo();
     }
 }

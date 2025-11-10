@@ -24,8 +24,8 @@ class BebidaController {
     }
 
     // Atualiza bebida existente
-    public function atualizar($nome, $valor, $qtde) {
-        $this->dao->atualizarBebida($nome, $valor, $qtde);
+    public function atualizar($nomeOriginal, $novoNome, $categoria, $volume, $valor, $qtde) {
+        $this->dao->atualizarBebida($nomeOriginal, $novoNome, $categoria, $volume, $valor, $qtde);
     }
 
     // Exclui bebida

@@ -1,9 +1,9 @@
 {
-    "Jequi Daniels": {
-        "nome": "Jequi Daniels",
-        "categoria": "Cerveja",
-        "volume": "500ml",
-        "valor": "333.33",
-        "qtde": "2"
+    "Jack Daniels": {
+        "nome": "Jack Daniels",
+        "categoria": "Destilado",
+        "volume": "2000ml",
+        "valor": "255.99",
+        "qtde": "3"
     }
 }
