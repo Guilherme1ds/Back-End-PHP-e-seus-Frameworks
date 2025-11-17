@@ -5,12 +5,5 @@
         "volume": "250ml",
         "valor": "15.00",
         "qtde": "23"
-    },
-     "Monster": {
-        "nome": "Monster",
-        "categoria": "Energético",
-        "volume": "250ml",
-        "valor": "15.00",
-        "qtde": "3"
     }
 }
