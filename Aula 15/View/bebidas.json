@@ -1,9 +1,9 @@
 {
-    "Jack Daniels": {
-        "nome": "Jack Daniels",
-        "categoria": "Destilado",
-        "volume": "2000ml",
-        "valor": "255.99",
-        "qtde": "3"
+    "Coca-Cola": {
+        "nome": "Coca-Cola",
+        "categoria": "Refrigerante",
+        "volume": "250ml",
+        "valor": "15.00",
+        "qtde": "23"
     }
 }
