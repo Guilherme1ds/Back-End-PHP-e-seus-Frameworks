@@ -7,7 +7,7 @@ class Connection {
             try {
                 // Ajuste seu usuário e senha aqui
                 $host = 'localhost';
-                $dbname = 'projeto_bebidas2';
+                $dbname = 'projeto_livros';
                 $user = 'root';
                 $pass = 'senaisp';
 
