@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['tituloOriginal'],
             $_POST['novoTitulo'],
             $_POST['autor'],
-            $_POST['ano'],
+            $_POST['ano_publicacao'],
             $_POST['genero'],
             $_POST['quantidade']
         );
@@ -29,14 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $livroParaEditar = null;
-if (isset($_POST['acao']) && $_POST['acao'] === 'editar') {
-    foreach ($controller->ler() as $livro) {
-        if ($bebida->getTitulo() === $_POST['nome']) {
-            $livroParaEditar = $livro;
-            break;
+    if (isset($_POST['acao']) && $_POST['acao'] === 'editar') {
+        foreach ($controller->ler() as $livro) {
+            if ($livro->getTitulo() === $_POST['titulo']) {
+                $livroParaEditar = $livro;
+                break;
+            }
         }
     }
-}
 
 $lista = $controller->ler();
 ?>
@@ -46,62 +46,159 @@ $lista = $controller->ler();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de livros</title>
+    <title>Livraria</title>
 <style>
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9; /* Fundo suave */
+            color: #333;
+            margin: 0;
+            padding: 20px;
             text-align: center;
-            font-family: Arial, Helvetica, sans-serif; 
         }
+
+        h1 {
+            color: #8b4513; /* Cor primária */
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 0;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #ccc;
+            margin: 20px 0;
+        }
+
+        .form-container, .lista-container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Formulários --- */
+
+        .form-container form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex-grow: 1;
+            min-width: 150px;
+        }
+
+        button[type="submit"],
+        .delete,
+        a.delete {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        button[value="salvar"],
+        button[value="Cadastrar"] {
+            background-color: #8b4513; /* Marrom bonito */
+        }
+
+        button[value="salvar"]:hover,
+        button[value="Cadastrar"]:hover {
+            background-color: #a0522d;
+        }
+
+        button.atualizar,
+        .button-atualizar {
+            background-color: #007bff; /* Azul para editar */
+        }
+
+        button.atualizar:hover,
+        .button-atualizar:hover {
+            background-color: #0056b3;
+        }
+
+        .delete, a.delete {
+            background-color: #dc3545; /* Vermelho para deletar/cancelar */
+        }
+
+        .delete:hover, a.delete:hover {
+            background-color: #c82333;
+        }
+
+        /* --- Tabela --- */
 
         table {
-            border: 2px;
-            background-color: white; 
-            text-align: center; margin: left; 
-            width: 100%; 
-            border-collapse: collapse; 
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-align: left; /* Alinhamento do texto na tabela */
         }
 
-        th { 
-            background-color: #467ff8ff; 
-            padding: 10px; 
-            color: white; 
-            border: 1px solid, black; 
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #8b4513; /* Cabeçalho marrom */
+            color: white;
+            font-weight: normal;
+            text-align: center;
         }
 
         td {
-            padding: 10px; 
-            border: 1px solid, black;
+            background-color: #fff;
+            color: #333;
+            text-align: center;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9f9f9; /* Listras suaves */
+        }
+
+        tr:hover td {
+            background-color: #e6e6e6; /* Efeito ao passar o mouse */
+        }
+
+        td:last-child {
+            /* Coluna de Ações */
+            text-align: center;
+            width: 1%; /* Garante que a coluna de ações seja compacta */
+            white-space: nowrap;
         }
 
         td form {
             display: inline-block;
-            margin: 0;
-        }
-        
-        button, .delete {
-            background-color: green;
-            color: white;
-            padding: 6px 10px; 
-            border: none;
-            cursor: pointer;
-            text-decoration: none; 
-            display: inline-block; 
-            font-size: 13.333px; 
-            font-family: Arial, Helvetica, sans-serif; 
-            line-height: normal;
-        }
-
-        .delete {
-            background-color: red;
-        }
-        
-        button.atualizar { 
-            background-color: #007bff; 
+            margin: 0 2px;
         }
     </style>
 </head>
 <body>
-<h1>Gerenciamento de livros</h1>
+<h1>Livraria Livros</h1>
 <br>
 <hr>
 <div class="form-container">
@@ -109,8 +206,8 @@ $lista = $controller->ler();
     <h2>Editar livros</h2>
     <form method="POST">
         <input type="hidden" name="acao" value="atualizar">
-    <input type="hidden" name="tituloOriginal" value="<?php echo htmlspecialchars($livroParaEditar->getTitulo()); ?>">
-    <input type="text" name="titulo"  placeholder="Titulo:" value="<?php echo htmlspecialchars($livroParaEditar->getTitulo()); ?>" required>
+        <input type="hidden" name="tituloOriginal" value="<?php echo htmlspecialchars($livroParaEditar->getTitulo()); ?>">
+        <input type="text" name="novoTitulo"  placeholder="Titulo:" value="<?php echo htmlspecialchars($livroParaEditar->getTitulo()); ?>" required>
         <input type="text" name="autor" placeholder="Autor:" value="<?php echo htmlspecialchars($livroParaEditar->getAutor()); ?>" required>
         <select name="genero" required >
             <option value="<?php echo htmlspecialchars($livroParaEditar->getGenero()); ?>">Selecione o gênero</option>
@@ -122,7 +219,7 @@ $lista = $controller->ler();
             <option value="Ficção">Ficção</option>
             <option value="Aventura">Aventura</option>
         </select>
-        <input type="date" name="ano_publicacao" placeholder="Ano de publicação:" value="<?php echo htmlspecialchars($livroParaEditar->getAnoPublicacao()); ?>" required>
+        <input type="number" name="ano_publicacao" placeholder="Ano de publicação:" value="<?php echo htmlspecialchars($livroParaEditar->getAnoPublicacao()); ?>" required>
         <input type="number" name="quantidade" placeholder="Quantidade em estoque:" value="<?php echo htmlspecialchars($livroParaEditar->getQuantidade()); ?>" required>
         <button type="submit" class="button-atualizar">Atualizar</button>
         <a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="delete">Cancelar</a>
@@ -143,9 +240,9 @@ $lista = $controller->ler();
             <option value="Ficção">Ficção</option>
             <option value="Aventura">Aventura</option>
         </select>
-        <input type="date" name="valor" step="0.01" placeholder="Ano de publicação:" required>
+        <input type="number" name="ano_publicacao" placeholder="Ano de publicação:" required>
         <input type="number" name="quantidade" placeholder="Quantidade em estoque:" required>
-        <button type="submit">Cadastrar</button>
+        <button type="submit" value="Cadastrar">Cadastrar</button>
     </form>
     <?php endif; ?>
 </div>
@@ -160,6 +257,7 @@ $lista = $controller->ler();
                 <th>Gênero</th>
                 <th>Ano de publicação</th>
                 <th>Quantidade</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -168,7 +266,7 @@ $lista = $controller->ler();
                 <td><?php echo htmlspecialchars($livro->getTitulo()); ?></td>
                 <td><?php echo htmlspecialchars($livro->getAutor()); ?></td>
                 <td><?php echo htmlspecialchars($livro->getGenero()); ?></td>
-                <td><?php echo htmlspecialchars($livro->getAnoPublicacao(),); ?></td>
+                <td><?php echo htmlspecialchars($livro->getAnoPublicacao()); ?></td>
                 <td><?php echo htmlspecialchars($livro->getQuantidade()); ?></td>
                 <td>
                     <form method="POST" style="display: inline;">
@@ -187,6 +285,8 @@ $lista = $controller->ler();
         </tbody>
     </table>
 </div>
+
+
 
 </body>
 </html>
